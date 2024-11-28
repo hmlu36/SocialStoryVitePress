@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "vite-plugin-glob": "^0.3.2",
+    "vitepress": "^1.5.0"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
