@@ -3,40 +3,42 @@ on:
   push:
     branches:
       - main
+      
 jobs:
   build:
-    name: Build and deploy gh-pages
-    env:
-      MY_SECRET: ${{secrets.commit_secret}}
-      USER_NAME: joshua.lu
-      USER_EMAIL: hmlu36@gmail.com
-      PUBLISH_DIR: .vitepress/dist
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.20.2]
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+      
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run docs:build
-      - name: Commit files
-        run: |
-          cd $PUBLISH_DIR
-          git init
-          git config --local user.name $USER_NAME
-          git config --local user.email $USER_EMAIL
-          git status
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "deploy to Github pages"
-          git push origin gh-pages -f
-          echo 🤘 deploy gh-pages complete.
+          node-version: 'lts/*'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with VitePress
+        run: npm run docs:build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload dist repository
+          path: .vitepress/dist
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
