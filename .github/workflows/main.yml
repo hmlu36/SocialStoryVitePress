@@ -10,7 +10,7 @@ jobs:
       MY_SECRET: ${{secrets.commit_secret}}
       USER_NAME: joshua.lu
       USER_EMAIL: hmlu36@gmail.com
-      PUBLISH_DIR: ./docs/.vitepress/dist
+      PUBLISH_DIR: .vitepress/dist
     runs-on: ubuntu-latest
     strategy:
       matrix:
