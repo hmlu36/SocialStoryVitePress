@@ -6,6 +6,7 @@ import path from 'path';
 function getSidebarItems() {
   const postsDir = path.resolve(__dirname, '../posts');
   const files = fs.readdirSync(postsDir);
+  const BASE_URL = process.env.NODE_ENV === 'production' ? '/SocialStoryVitePress' : '';
 
   const sidebarItems = files
     .filter(file => file.endsWith('.md'))
@@ -13,7 +14,7 @@ function getSidebarItems() {
       const title = file.replace('.md', '');
       return {
         text: title,
-        link: `/posts/${file.replace('.md', '.html')}`
+        link: `${BASE_URL}/posts/${file.replace('.md', '.html')}`
       };
     })
     .sort((a, b) => {
