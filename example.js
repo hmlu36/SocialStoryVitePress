@@ -1,0 +1,3 @@
+
+console.log('Base URL:', process.env.BASE_URL);
+// ...existing code...
