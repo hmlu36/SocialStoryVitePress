@@ -32,10 +32,8 @@ export default defineConfig({
   title: "Social Story",
   description: "Social Story For Teacher Use Only",
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
     ],
 
     sidebar: [
@@ -46,7 +44,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/hmlu36/SocialStoryVitePress' }
     ]
   },
 })
