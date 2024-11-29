@@ -3,6 +3,7 @@
     <div v-for="(item, index) in items" :key="item.image" class="mySlides fade" v-show="currentSlide === index">
       <h1 class="text" @click="playAudio(item.audio)">{{ item.text }}</h1>
       <img :src="getImageUrl(item.image)" :alt="item.text" class="slide-image" @click="playAudio(item.audio)" />
+      <div class="page-number">{{ currentSlide + 1 }} / {{ items.length }}</div>
     </div>
     <a class="prev-slide" @click="changeSlide(-1)">&#10094;</a>
     <a class="next-slide" @click="changeSlide(1)">&#10095;</a>
@@ -143,5 +144,16 @@ export default {
 .slide-image {
   width: 100%;
   object-fit: cover;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  color: white;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 </style>
