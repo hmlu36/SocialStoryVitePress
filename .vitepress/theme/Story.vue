@@ -26,7 +26,7 @@ export default {
     const currentAudio = ref(null);
 
     const isProduction = process.env.NODE_ENV === 'production';
-    const BASE_URL = isProduction ? `/SocialStoryVitePress` : '';
+    const BASE_URL = isProduction ? `/SocialStoryVitePress/` : '';
 
     const fetchData = async () => {
       try {
@@ -49,11 +49,11 @@ export default {
     };
 
     const getImageUrl = (imagePath) => {
-      return `${BASE_URL}/${imagePath}`;
+      return `${BASE_URL}${imagePath}`;
     };
 
     const getAudioUrl = (audioPath) => {
-      return `${BASE_URL}/${audioPath}`;
+      return `${BASE_URL}${audioPath}`;
     };
 
     const changeSlide = (n) => {

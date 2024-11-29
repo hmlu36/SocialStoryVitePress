@@ -1,10 +1,21 @@
 import { defineConfig } from 'vitepress'
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
-const BASE_URL = process.env.NODE_ENV === 'production' ? '/SocialStoryVitePress/' : '';
+function getProjectName() {
+  try {
+    const result = execSync('git rev-parse --show-toplevel').toString().trim();
+    return path.basename(result);
+  } catch (error) {
+    console.error('Error getting project name:', error);
+    return '';
+  }
+}
 
-// 获取 posts 目录下的所有 Markdown 文件
+const BASE_URL = process.env.NODE_ENV === 'production' ? `/${getProjectName()}/` : '';
+
+// 取 posts 底下的所有 Markdown
 function getSidebarItems() {
   const postsDir = path.resolve(__dirname, '../posts');
   const files = fs.readdirSync(postsDir);
@@ -15,7 +26,7 @@ function getSidebarItems() {
       const title = file.replace('.md', '');
       return {
         text: title,
-        link: `${BASE_URL}posts/${file.replace('.md', '.html')}`
+        link: `/posts/${file.replace('.md', '.html')}`
       };
     })
     .sort((a, b) => {
