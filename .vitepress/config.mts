@@ -1,13 +1,11 @@
 import { defineConfig } from 'vitepress'
 import fs from 'fs';
 import path from 'path';
-import { getProjectName } from './utils'; 
 
 const isProduction = process.env.NODE_ENV === 'production';
-const BASE_URL = isProduction ? getProjectName() : '';
-console.log(BASE_URL);
+const BASE_URL = isProduction ? '/SocialStoryVitePress/' : '';
 
-// 取 posts 底下的所有 Markdown
+// 取 docs 底下的所有 Markdown
 function getSidebarItems() {
   const postsDir = path.resolve(__dirname, '../docs');
   const files = fs.readdirSync(postsDir);
