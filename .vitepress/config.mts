@@ -2,6 +2,8 @@ import { defineConfig } from 'vitepress'
 import fs from 'fs';
 import path from 'path';
 
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/SocialStoryVitePress' : '';
+
 // 获取 posts 目录下的所有 Markdown 文件
 function getSidebarItems() {
   const postsDir = path.resolve(__dirname, '../posts');
@@ -13,7 +15,7 @@ function getSidebarItems() {
       const title = file.replace('.md', '');
       return {
         text: title,
-        link: `/posts/${file.replace('.md', '.html')}`
+        link: `${BASE_URL}/posts/${file.replace('.md', '.html')}`
       };
     })
     .sort((a, b) => {
@@ -27,7 +29,7 @@ function getSidebarItems() {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/SocialStoryVitePress',
+  base: BASE_URL,
   title: "Social Story",
   description: "Social Story For Teacher Use Only",
   themeConfig: {
