@@ -11,7 +11,7 @@
 
 <script>
 import { ref, onMounted, watch } from 'vue';
-import { getBaseUrl } from '../utils';
+import { getProjectName } from '../utils';
 
 
 export default {
@@ -28,7 +28,7 @@ export default {
     const currentAudio = ref(null);
 
     const isProduction = process.env.NODE_ENV === 'production';
-    const BASE_URL = isProduction ? getBaseUrl() : '';
+    const BASE_URL = isProduction ? getProjectName() : '';
 
     const fetchData = async () => {
       try {

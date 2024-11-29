@@ -7,8 +7,3 @@ export function getProjectName() {
     return '';
   }
 }
-
-export function getBaseUrl(isProduction) {
-  const projectName = getProjectName();
-  return isProduction ? `/${projectName}/` : '';
-}
