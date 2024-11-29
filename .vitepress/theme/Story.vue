@@ -25,9 +25,11 @@ export default {
     const audioElements = ref({});
     const currentAudio = ref(null);
 
+    const BASE_URL = process.env.NODE_ENV === 'production' ? `/SocialStoryVitePress` : '';
+
     const fetchData = async () => {
       try {
-        const response = await fetch(props.jsonPath);
+        const response = await fetch(`${BASE_URL}/${props.jsonPath}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
