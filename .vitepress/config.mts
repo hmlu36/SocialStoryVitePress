@@ -29,7 +29,7 @@ function getSidebarItems() {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: BASE_URL,
+  base: `${BASE_URL}`,
   title: "Social Story",
   description: "Social Story For Teacher Use Only",
   themeConfig: {
