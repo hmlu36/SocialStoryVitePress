@@ -1,23 +1,13 @@
 import { defineConfig } from 'vitepress'
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
+import { getBaseUrl } from './utils'; 
 
-function getProjectName() {
-  try {
-    const result = execSync('git rev-parse --show-toplevel').toString().trim();
-    return path.basename(result);
-  } catch (error) {
-    console.error('Error getting project name:', error);
-    return '';
-  }
-}
-
-const BASE_URL = process.env.NODE_ENV === 'production' ? `/${getProjectName()}/` : '';
+const BASE_URL = getBaseUrl();
 
 // 取 posts 底下的所有 Markdown
 function getSidebarItems() {
-  const postsDir = path.resolve(__dirname, '../posts');
+  const postsDir = path.resolve(__dirname, '../docs');
   const files = fs.readdirSync(postsDir);
 
   const sidebarItems = files
@@ -26,7 +16,7 @@ function getSidebarItems() {
       const title = file.replace('.md', '');
       return {
         text: title,
-        link: `/posts/${file.replace('.md', '.html')}`
+        link: `/docs/${file.replace('.md', '.html')}`
       };
     })
     .sort((a, b) => {
@@ -37,6 +27,7 @@ function getSidebarItems() {
 
   return sidebarItems;
 }
+
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({

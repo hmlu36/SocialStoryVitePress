@@ -11,13 +11,14 @@
 
 <script>
 import { ref, onMounted } from 'vue';
+import { getBaseUrl } from '../utils'; 
 
 export default {
     setup() {
         const posts = ref([]);
 
         onMounted(async () => {
-            const context = import.meta.glob('/posts/*.md');
+            const context = import.meta.glob('/docs/*.md');
             posts.value = Object.keys(context)
                 .map((key) => {
                     const title = key.split('/').pop().replace('.md', '');

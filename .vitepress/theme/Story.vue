@@ -11,6 +11,7 @@
 
 <script>
 import { ref, onMounted, watch } from 'vue';
+import { getBaseUrl } from '../utils'; 
 
 export default {
   props: {
@@ -25,8 +26,7 @@ export default {
     const audioElements = ref({});
     const currentAudio = ref(null);
 
-    const isProduction = process.env.NODE_ENV === 'production';
-    const BASE_URL = isProduction ? `/SocialStoryVitePress/` : '';
+    const BASE_URL = getBaseUrl();
 
     const fetchData = async () => {
       try {
