@@ -2,7 +2,7 @@
   <div class="slideshow-container">
     <div v-for="(item, index) in items" :key="item.image" class="mySlides fade" v-show="currentSlide === index">
       <h1 class="text" @click="playAudio(item.audio)">{{ item.text }}</h1>
-      <img :src="item.image" :alt="item.text" class="slide-image" @click="playAudio(item.audio)" />
+      <img :src="getImageUrl(item.image)" :alt="item.text" class="slide-image" @click="playAudio(item.audio)" />
     </div>
     <a class="prev-slide" @click="changeSlide(-1)">&#10094;</a>
     <a class="next-slide" @click="changeSlide(1)">&#10095;</a>
@@ -25,11 +25,12 @@ export default {
     const audioElements = ref({});
     const currentAudio = ref(null);
 
-    const BASE_URL = process.env.NODE_ENV === 'production' ? `/SocialStoryVitePress` : '';
+    const isProduction = process.env.NODE_ENV === 'production';
+    const BASE_URL = isProduction ? `/SocialStoryVitePress` : '';
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/${props.jsonPath}`);
+        const response = await fetch(`${BASE_URL}${props.jsonPath}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -38,13 +39,21 @@ export default {
 
         // Preload audio files
         items.value.forEach(item => {
-          const audio = new Audio(item.audio);
+          const audio = new Audio(getAudioUrl(item.audio));
           audio.preload = 'auto';
           audioElements.value[item.audio] = audio;
         });
       } catch (error) {
         console.error('Error fetching JSON:', error);
       }
+    };
+
+    const getImageUrl = (imagePath) => {
+      return `${BASE_URL}/${imagePath}`;
+    };
+
+    const getAudioUrl = (audioPath) => {
+      return `${BASE_URL}/${audioPath}`;
     };
 
     const changeSlide = (n) => {
@@ -75,7 +84,7 @@ export default {
     onMounted(fetchData);
     watch(() => props.jsonPath, fetchData);
 
-    return { items, currentSlide, changeSlide, playAudio };
+    return { items, currentSlide, changeSlide, playAudio, getImageUrl, getAudioUrl };
   }
 };
 </script>
