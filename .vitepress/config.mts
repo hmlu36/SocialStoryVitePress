@@ -44,6 +44,11 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/hmlu36/SocialStoryVitePress' }
-    ]
+    ],
+
   },
+  vite: {
+    // Vite config options
+    assetsInclude: ['**/data/**', '**/images/**', '**/audios/**'],
+  }
 })
