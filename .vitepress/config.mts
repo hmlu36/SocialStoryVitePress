@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { getBaseUrl } from './utils'; 
 
-const BASE_URL = getBaseUrl();
+const isProduction = process.env.NODE_ENV === 'production';
+const BASE_URL = isProduction ? getBaseUrl() : '';
 console.log(BASE_URL);
 
 // 取 posts 底下的所有 Markdown

@@ -11,7 +11,8 @@
 
 <script>
 import { ref, onMounted, watch } from 'vue';
-import { getBaseUrl } from '../utils'; 
+import { getBaseUrl } from '../utils';
+
 
 export default {
   props: {
@@ -26,7 +27,8 @@ export default {
     const audioElements = ref({});
     const currentAudio = ref(null);
 
-    const BASE_URL = getBaseUrl();
+    const isProduction = process.env.NODE_ENV === 'production';
+    const BASE_URL = isProduction ? getBaseUrl() : '';
 
     const fetchData = async () => {
       try {
@@ -105,7 +107,8 @@ export default {
   display: block;
 }
 
-.prev-slide, .next-slide {
+.prev-slide,
+.next-slide {
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -125,8 +128,9 @@ export default {
   border-radius: 3px 0 0 3px;
 }
 
-.prev-slide:hover, .next-slide:hover {
-  background-color: rgba(0,0,0,0.8);
+.prev-slide:hover,
+.next-slide:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .text {
@@ -134,7 +138,8 @@ export default {
   font-size: 32px;
   padding: 16px 12px;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color for better readability */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Optional: Add background color for better readability */
 }
 
 .slide-image {
