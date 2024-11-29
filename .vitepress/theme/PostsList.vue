@@ -11,7 +11,6 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import { getBaseUrl } from '../utils'; 
 
 export default {
     setup() {

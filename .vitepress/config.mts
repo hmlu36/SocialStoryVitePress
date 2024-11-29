@@ -4,6 +4,7 @@ import path from 'path';
 import { getBaseUrl } from './utils'; 
 
 const BASE_URL = getBaseUrl();
+console.log(BASE_URL);
 
 // 取 posts 底下的所有 Markdown
 function getSidebarItems() {
