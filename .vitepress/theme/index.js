@@ -1,6 +1,6 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme';
-import Story from './Story.vue';
+import Story from '../components/Story.vue';
 import './custom.css'
 
 export default {
